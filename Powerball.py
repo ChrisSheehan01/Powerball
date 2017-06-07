@@ -35,13 +35,15 @@ def getNumbersFromUser():
         nameAndFavNums.append(sys.stdin.readline().replace("\n", ""))
 
 def checkIfValidNum(num):
+    if len(nameAndFavNums) == 0:
+        return True
     if (num >= 1) and (num <= 69):
         if len(nameAndFavNums) == 6:
             if num <= 26:
                 return True
             else:
                 return False
-        elif nameAndFavNums.__contains__(num):
+        elif nameAndFavNums[1:].__contains__(num):
             return False
         else:
             return True
@@ -58,6 +60,6 @@ def printFromFile():
     text_in_file = employeePowerball.read()
     print(text_in_file)
 
-getNameAndNumbersFromUser()
-writeToFile(nameAndFavNums)
-printFromFile()
+# getNameAndNumbersFromUser()
+# writeToFile(nameAndFavNums)
+# printFromFile()
