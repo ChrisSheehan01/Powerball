@@ -36,7 +36,7 @@ def getNumbersFromUser():
                     exclusion = '26'
                 else:
                     if i >= 2:
-                        exclusion = '69 excluding ' + str(nameAndFavNums[1:-1]).strip("[").strip("]") + ', and ' + str(nameAndFavNums[-1])
+                        exclusion = '69 excluding ' + str(nameAndFavNums[1:-1]).translate(None, "[]") + ', and ' + str(nameAndFavNums[-1])
                     else:
                         exclusion = '69 excluding ' + str(nameAndFavNums[1])
                 if i == 6:
@@ -45,6 +45,7 @@ def getNumbersFromUser():
                 print("Invalid integer, try again.")
         except ValueError:
             print("Not an integer, try again.")
+    print()
 
 
 def checkIfValidNum(num):
@@ -98,16 +99,21 @@ def determineFinalTicket():
         finalTicket.append(mostFreqNums[randint(0, len(mostFreqNums) - 1)])
 
 
-# def printFromFile():
-#     employeePowerball = open("employeePowerball.txt", "r")
-#     text_in_file = employeePowerball.read()
-#     print(text_in_file)
+def printAllEmployeeNumbers():
+    with open ('employeePowerball.txt', 'r') as input_file:
+        for line in input_file:
+            text_line = list(line.strip("\n").split(", "))
+            print(text_line[0].strip("'"), end=" ")
+            for i in text_line[1:-1]:
+                print(i + " ", end="")
+            print("Powerball: " + str(text_line[-1]))
 
 
-#getNameAndNumbersFromUser()
-#writeToFile(nameAndFavNums)
+getNameAndNumbersFromUser()
+writeToFile(nameAndFavNums)
 addToTotalList()
 findNumFrequency()
 determineFinalTicket()
-print(finalTicket)
-#printFromFile()
+printAllEmployeeNumbers()
+print("\nPowerball winning number: \n" + str(finalTicket[:-1]).translate(None, "',[]") + " Powerball: "+ str(finalTicket[-1]))
+
