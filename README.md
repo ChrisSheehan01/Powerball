@@ -21,7 +21,7 @@ consider for a Powerball entry ticket so that I can win 1 billion dollars.*
     
     ·  Display the final Powerball number based on the requirements above.
  
-##Sample output
+## Sample output
 Enter your first name: Wade  
 Enter your last name: Wilson  
 select 1st # (1 thru 69): 12  
