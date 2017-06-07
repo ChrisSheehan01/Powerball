@@ -1,9 +1,11 @@
 from __future__ import print_function
 from collections import Counter
-import sys
+from random import randint
 
 nameAndFavNums = []
 allNamesAndNums = []
+columnCounts = []
+finalTicket = []
 
 def getNameAndNumbersFromUser():
     getEmployeeNameFromUser()
@@ -11,12 +13,10 @@ def getNameAndNumbersFromUser():
 
 def getEmployeeNameFromUser():
     print('Enter your first name: ', end='')
-    #name = sys.stdin.readline()
     name = raw_input()
     print('Enter your last name: ', end='')
-    #name = name + " " + sys.stdin.readline()
     name = name + " " + raw_input()
-    nameAndFavNums.append(name.replace("\n", ""))
+    nameAndFavNums.append(name)
 
 
 def getNumbersFromUser():
@@ -66,7 +66,6 @@ def checkIfValidNum(num):
 
 def writeToFile(line):
     employeePowerball = open("employeePowerball.txt", "a")
-    #employeePowerball.write(bytes(str(line).strip("[").strip("]")) + "\n")
     employeePowerball.write(bytes(str(line).strip("[").strip("]")))
     employeePowerball.write("\n")
     employeePowerball.close()
@@ -77,24 +76,38 @@ def addToTotalList():
         for line in input_file:
             text_in_file = list(line.strip("\n").split(", "))
             allNamesAndNums.append(text_in_file)
-    print (1)
-    print (allNamesAndNums)
+
 
 def findNumFrequency():
-
     for i in range(1, 7):
         columns = []
         for eachList in allNamesAndNums:
             columns.append(eachList[i])
-        print(Counter(columns))
+        columnCounts.append(Counter(columns))
 
-def printFromFile():
-    employeePowerball = open("employeePowerball.txt", "r")
-    text_in_file = employeePowerball.read()
-    print(text_in_file)
+
+def determineFinalTicket():
+    for counter in columnCounts:
+        maxValue = counter.most_common(1)[0][1]
+        mostFreqNums = []
+        j = 0
+        for i in counter:
+            if counter[i] == maxValue:
+                mostFreqNums.append(counter.keys()[j])
+            j += 1
+        finalTicket.append(mostFreqNums[randint(0, len(mostFreqNums) - 1)])
+
+
+# def printFromFile():
+#     employeePowerball = open("employeePowerball.txt", "r")
+#     text_in_file = employeePowerball.read()
+#     print(text_in_file)
+
 
 #getNameAndNumbersFromUser()
 #writeToFile(nameAndFavNums)
 addToTotalList()
 findNumFrequency()
-printFromFile()
+determineFinalTicket()
+print(finalTicket)
+#printFromFile()
