@@ -3,6 +3,7 @@ from collections import Counter
 import sys
 
 nameAndFavNums = []
+allNamesAndNums = []
 
 def getNameAndNumbersFromUser():
     getEmployeeNameFromUser()
@@ -10,9 +11,11 @@ def getNameAndNumbersFromUser():
 
 def getEmployeeNameFromUser():
     print('Enter your first name: ', end='')
-    name = sys.stdin.readline()
+    #name = sys.stdin.readline()
+    name = raw_input()
     print('Enter your last name: ', end='')
-    name = name + " " + sys.stdin.readline()
+    #name = name + " " + sys.stdin.readline()
+    name = name + " " + raw_input()
     nameAndFavNums.append(name.replace("\n", ""))
 
 
@@ -60,23 +63,38 @@ def checkIfValidNum(num):
     else:
         return False
 
+
 def writeToFile(line):
     employeePowerball = open("employeePowerball.txt", "a")
-    employeePowerball.write(bytes(line))
+    #employeePowerball.write(bytes(str(line).strip("[").strip("]")) + "\n")
+    employeePowerball.write(bytes(str(line).strip("[").strip("]")))
     employeePowerball.write("\n")
     employeePowerball.close()
 
+
+def addToTotalList():
+    with open('employeePowerball.txt', 'r') as input_file:
+        for line in input_file:
+            text_in_file = list(line.strip("\n").split(", "))
+            allNamesAndNums.append(text_in_file)
+    print (1)
+    print (allNamesAndNums)
+
 def findNumFrequency():
-    employeePowerball = open("employeePowerball.txt", "r")
-    text_in_file = employeePowerball.read()
-    print ("hi" + str(Counter(text_in_file).most_common(5)))
+
+    for i in range(1, 7):
+        columns = []
+        for eachList in allNamesAndNums:
+            columns.append(eachList[i])
+        print(Counter(columns))
 
 def printFromFile():
     employeePowerball = open("employeePowerball.txt", "r")
     text_in_file = employeePowerball.read()
     print(text_in_file)
 
-getNameAndNumbersFromUser()
-# writeToFile(nameAndFavNums)
-# findNumFrequency()
-# printFromFile()
+#getNameAndNumbersFromUser()
+#writeToFile(nameAndFavNums)
+addToTotalList()
+findNumFrequency()
+printFromFile()
