@@ -15,18 +15,38 @@ def getEmployeeNameFromUser():
     nameAndFavNums.append(name.replace("\n", ""))
 
 def getNumbersFromUser():
-    print('select 1st # (1 thru 69): ', end='')
-    nameAndFavNums.append(sys.stdin.readline().replace("\n", ""))
-    print('select 2nd # (1 thru 69 excluding' + str(nameAndFavNums[1:]) + '): ', end='')
-    nameAndFavNums.append(sys.stdin.readline().replace("\n", ""))
-    print('select 3rd # (1 thru 69 excluding' + str(nameAndFavNums[1:]) + '): ', end='')
-    nameAndFavNums.append(sys.stdin.readline().replace("\n", ""))
-    print('select 4th # (1 thru 69 excluding' + str(nameAndFavNums[1:]) + '): ', end='')
-    nameAndFavNums.append(sys.stdin.readline().replace("\n", ""))
-    print('select 5th # (1 thru 69 excluding' + str(nameAndFavNums[1:]) + '): ', end='')
-    nameAndFavNums.append(sys.stdin.readline().replace("\n", ""))
-    print('select Power Ball # (1 thru 26): ', end='')
-    nameAndFavNums.append(sys.stdin.readline().replace("\n", ""))
+    print('Select 1st # (1 thru 69): ', end='')
+    if checkIfValidNum(sys.stdin.readline().replace("\n", "")):
+        nameAndFavNums.append(sys.stdin.readline().replace("\n", ""))
+    print('Select 2nd # (1 thru 69 excluding' + str(nameAndFavNums[1:]) + '): ', end='')
+    if checkIfValidNum(sys.stdin.readline().replace("\n", "")):
+        nameAndFavNums.append(sys.stdin.readline().replace("\n", ""))
+    print('Select 3rd # (1 thru 69 excluding' + str(nameAndFavNums[1:]) + '): ', end='')
+    if checkIfValidNum(sys.stdin.readline().replace("\n", "")):
+        nameAndFavNums.append(sys.stdin.readline().replace("\n", ""))
+    print('Select 4th # (1 thru 69 excluding' + str(nameAndFavNums[1:]) + '): ', end='')
+    if checkIfValidNum(sys.stdin.readline().replace("\n", "")):
+        nameAndFavNums.append(sys.stdin.readline().replace("\n", ""))
+    print('Select 5th # (1 thru 69 excluding' + str(nameAndFavNums[1:]) + '): ', end='')
+    if checkIfValidNum(sys.stdin.readline().replace("\n", "")):
+        nameAndFavNums.append(sys.stdin.readline().replace("\n", ""))
+    print('Select Power Ball # (1 thru 26): ', end='')
+    if checkIfValidNum(sys.stdin.readline().replace("\n", "")):
+        nameAndFavNums.append(sys.stdin.readline().replace("\n", ""))
+
+def checkIfValidNum(num):
+    if (num >= 1) and (num <= 69):
+        if len(nameAndFavNums) == 6:
+            if num <= 26:
+                return True
+            else:
+                return False
+        elif nameAndFavNums.__contains__(num):
+            return False
+        else:
+            return True
+    else:
+        return False
 
 def writeToFile(line):
     employeePowerball = open("employeePowerball.txt", "a")
